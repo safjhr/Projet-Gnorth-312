@@ -39,15 +39,15 @@ La commande devrait se terminer sans erreurs.
 Toujours bien d'apprendre :)
 
 #### PHP
-- HTTP header always text/html even when manually set
+- HTTP header always text/html even when manually set  
 https://code.whatever.social/questions/8028957/how-to-fix-headers-already-sent-error-in-php
-- How to add local path composer's requirements
+- How to add local path composer's requirements  
 https://aschmelyun.com/blog/installing-a-local-composer-package-in-your-php-project/
-- Secure PHP application
+- Secure PHP application  
 https://www.php.net/manual/en/security.php
-- PHP "the right way"
+- PHP "the right way"  
 https://phptherightway.com/
-- PHP OOP ressources
+- PHP OOP ressources  
 https://github.com/marcelgsantos/learning-oop-in-php
 
 #### Git
