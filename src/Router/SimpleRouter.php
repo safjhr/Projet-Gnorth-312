@@ -23,7 +23,13 @@ class Route {
     }
 
     public function call(Request $request, ?Renderer $engine): Response {
-	    // TODO
+	    $class = $this->view;
+        $view = new $class();
+        $response = $view->render($request);
+        if (!$response instanceof Response) {
+            throw new RouterException\InvalidViewImplementation($class);
+        }
+        return $response;
     }
 }
 
