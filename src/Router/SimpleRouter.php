@@ -41,9 +41,37 @@ class SimpleRouter implements Router {
 	    // TODO
     }
 
-    public function serve(mixed ...$args): void {
-	    // TODO
+public function serve(mixed ...$args): void {
+
+    $request = ($args[0] ?? null) instanceof Request 
+        ? $args[0] 
+        : Request::createFromGlobals();
+
+    $path = $request->getPathInfo();
+
+    if (isset($this->routes[$path])) {
+        $route = $this->routes[$path];
+        
+        try {
+
+            $htmlContent = $route->call($request, $this->engine);
+
+            $view = new HTMLView();
+            
+            $viewData = is_array($htmlContent) ? $htmlContent : [$htmlContent];
+            
+            $response = $view->display($viewData);
+
+        } catch (\Exception $e) {
+            $response = new Response("Erreur serveur : " . $e->getMessage(), 500);
+        }
+
+    } else {
+        $response = new Response("Page non trouvée", 404);
     }
+
+    $response->send();
+}
 }
 
 ?>
