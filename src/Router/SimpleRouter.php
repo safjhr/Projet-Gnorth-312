@@ -35,6 +35,7 @@ class Route {
 
 class SimpleRouter implements Router {
     private Renderer $engine;
+    private array $routes; // ajout de la propriété pour stocker les routes
 
     // constructeur qui initialise le moteur de rendu et les routes
     public function __construct(Renderer $engine) {
@@ -43,11 +44,11 @@ class SimpleRouter implements Router {
         
     }
 
-    public function register(string $path, string|object $class_or_view) {
-	    // TODO
+    public function register(string $path, string|object $class_or_view): void {
+        $this->routes[$path] = new Route($class_or_view);
     }
 
-public function serve(mixed ...$args): void {
+    public function serve(mixed ...$args): void {
 
     $request = ($args[0] ?? null) instanceof Request 
         ? $args[0] 
@@ -59,14 +60,7 @@ public function serve(mixed ...$args): void {
         $route = $this->routes[$path];
         
         try {
-
-            $htmlContent = $route->call($request, $this->engine);
-
-            $view = new HTMLView();
-            
-            $viewData = is_array($htmlContent) ? $htmlContent : [$htmlContent];
-            
-            $response = $view->display($viewData);
+            $response = $route->call($request, $this->engine);
 
         } catch (\Exception $e) {
             $response = new Response("Erreur serveur : " . $e->getMessage(), 500);
