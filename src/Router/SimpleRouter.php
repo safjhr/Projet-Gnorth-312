@@ -30,9 +30,11 @@ class Route {
 class SimpleRouter implements Router {
     private Renderer $engine;
 
+    // constructeur qui initialise le moteur de rendu et les routes
     public function __construct(Renderer $engine) {
         $this->engine = $engine;
-        // TODO
+        $this->routes = [];
+        
     }
 
     public function register(string $path, string|object $class_or_view) {
